@@ -11,6 +11,7 @@
 @implementation FLBubbleView
 {
     CGRect _selfFrame;
+    CGPoint _oriCenter;
     UIColor *_bubbleColor;
     UIColor *_shapeColor;
     
@@ -41,13 +42,7 @@
     
     UIBezierPath *path;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 -(instancetype)initWithFrame:(CGRect)frame inView:(UIView*)view{
     self = [super initWithFrame:frame];
     _selfFrame = frame;
@@ -68,6 +63,7 @@
     _oriBubble.layer.cornerRadius = r1;
     _oriBubble.hidden = YES;
     [_containerView addSubview:_oriBubble];
+    _oriCenter = _oriBubble.center;
     
     _slideBubble = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _selfFrame.size.width, _selfFrame.size.height)];
     _slideBubble.backgroundColor = _bubbleColor;
@@ -106,6 +102,27 @@
              pan.state == UIGestureRecognizerStateCancelled ||
              pan.state == UIGestureRecognizerStateFailed){
         
+        if (r1<6) {
+            //slideBubble boom!
+        }else{
+            //refresh
+            _oriBubble.hidden = YES;
+            _shapeColor = [UIColor clearColor];
+             [_shapeLayer removeFromSuperlayer];
+            /*
+             dampingRatio（阻尼系数）
+             范围 0~1 当它设置为1时，动画是平滑的没有振动的达到静止状态，越接近0 振动越大
+             velocity （弹性速率）
+             就是形变的速度，从视觉上看可以理解弹簧的形变速度，到动画结束，该速度减为0，所以，velocity速度越大，那么形变会越快，当然在同等时间内，速度的变化（就是速率）也会越快，因为速度最后都要到0。
+             */
+            [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:0.3f initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                
+                _slideBubble.center = _oriCenter;
+            } completion:^(BOOL finished) {
+               
+
+            }];
+        }
     }
 }
 - (void)slipDisplay{
@@ -139,7 +156,6 @@
 - (void)drawTrail{
     _oriBubble.bounds = CGRectMake(0, 0, r1*2, r1*2);
     _oriBubble.layer.cornerRadius = r1;
-//    _oriBubble.clipsToBounds = YES;
     
     path = [UIBezierPath bezierPath];
     [path moveToPoint:pointD];

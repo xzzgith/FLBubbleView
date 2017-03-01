@@ -511,6 +511,7 @@
 				6E19622C1E5D777900A3F275 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E19622D1E5D777900A3F275 /* Build configuration list for PBXNativeTarget "QQBubbleTests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +520,7 @@
 				6E19622F1E5D777900A3F275 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6E1962301E5D777900A3F275 /* Build configuration list for PBXNativeTarget "QQBubbleUITests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +529,7 @@
 				6E1962321E5D777900A3F275 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
